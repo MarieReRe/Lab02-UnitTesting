@@ -1,7 +1,7 @@
 # Lab02-UnitTesting
 **Start Time:** 7:40pm
-**End Time:**
-**Total Time:**
+**End Time:** 1:13pm
+**Total Time:** 6+ hrs
 
 
 ## Problem Domain
