@@ -87,6 +87,21 @@ namespace TestATM
             Assert.Equal(originalBalance + userDepositInput, balanceAfterDeposit);
         }
         // deposit negative number
+
+        [Fact]
+        public void UserTriedToDepositANegative()
+        {
+            //Arrange
+            decimal originalBalance = Program.GetBalance();
+            decimal userDepositInput = -1;
+
+
+            //Act
+            decimal balanceAfterDeposit = Program.UserDeposit(userDepositInput);
+
+            //Assert
+            Assert.Equal(originalBalance, balanceAfterDeposit);
+        }
         
     } 
 }
