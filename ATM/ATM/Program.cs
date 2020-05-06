@@ -11,8 +11,11 @@ namespace ATM
             AtmControls();
 
         }
+
         //set initial balance for user 
         static decimal balance = 1000.00m;
+
+
         public static decimal GetBalance()
         {
             return balance;
@@ -86,7 +89,7 @@ namespace ATM
             }
             else if(balance > 0)
             {
-                balance -= amountToWithdraw;
+                balance-= amountToWithdraw;
             }
             return balance;
         

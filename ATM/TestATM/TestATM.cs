@@ -37,7 +37,20 @@ namespace TestATM
             //assert
             Assert.Equal(originalBalance, balanceAfterWithdraw);
         }
+        [Fact]
+        public void CanWithdrawSmallAmount()
+        {
+            //Arrange
+            decimal originalBalance = Program.GetBalance();
+            decimal smallWithdraw = originalBalance / 20;
+            
+            //Act
+            decimal balanceAfterWithdraw = Program.WithdrawMoney(smallWithdraw);
 
-        //overdraft
+            //Assert
+            Assert.Equal( originalBalance - smallWithdraw, balanceAfterWithdraw);
+        }
+
+        
     } 
 }
