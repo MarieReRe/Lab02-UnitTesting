@@ -1,4 +1,5 @@
-using Microsoft.VisualStudio.TestPlatform.TestHost;
+
+using ATM;
 using System;
 using Xunit;
 
@@ -6,18 +7,37 @@ namespace TestATM
 {
     public class TestATM
     {
+
+
         [Fact]
-        public void cannot_overdraw_account()
+        public void doWeHaveBalance()
         {
             //Arrange
-            double balance = 0;
-            double withdrawalAmount = 5;
+
 
             //Act
-            double result = Program.WithDraw(balance, withdrawalAmount);
+            decimal balance = Program.GetBalance();
+
             //Assert
-            Assert.Equal(0, result);
+            Assert.Equal(1000, balance);
+           
+        
 
         }
-    }
+        [Fact]
+        public void NoOverdrafting()
+        {
+            //set up circumstances
+            //arrange
+            decimal originalBalance = Program.GetBalance();
+            decimal amountToWithdraw = originalBalance + 500;
+            //act
+            decimal balanceAfterWithdraw = Program.WithdrawMoney(amountToWithdraw);
+
+            //assert
+            Assert.Equal(originalBalance, balanceAfterWithdraw);
+        }
+
+        //overdraft
+    } 
 }

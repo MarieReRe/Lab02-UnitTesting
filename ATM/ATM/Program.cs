@@ -1,8 +1,9 @@
 ﻿using System;
+using System.Globalization;
 
 namespace ATM
 {
-    class Program
+    public class Program
     {
         static void Main(string[] args)
         {
@@ -11,7 +12,11 @@ namespace ATM
 
         }
         //set initial balance for user 
-        static double balance = 10000000.00;
+        static decimal balance = 1000.00m;
+        public static decimal GetBalance()
+        {
+            return balance;
+        }
         public static void AtmControls()
         {
             string[] userActionSelection =
@@ -26,7 +31,7 @@ namespace ATM
             Console.WriteLine("Welcome to DeltaV ATM, Please choose a number to proceed.");
 
             //iterate through each user selection
-            foreach(string action in userActionSelection)
+            foreach (string action in userActionSelection)
             {
                 Console.WriteLine(action);
             }
@@ -45,7 +50,7 @@ namespace ATM
             //set the user number choice to string
             string userInput = Console.ReadLine();
             //If user inputs "number x'
-            if(userInput == "1" || userInput == "one")
+            if (userInput == "1" || userInput == "one")
             {
                 userBalance();
             }
@@ -55,7 +60,9 @@ namespace ATM
             }
             else if (userInput == "3" || userInput == "three")
             {
-                Console.WriteLine("Testing: You chose option three");
+                Console.WriteLine("How much would you like to withdraw today?");
+                string response = Console.ReadLine();
+                decimal amountToWithdraw = Convert.ToInt32(response);
             }
             else if (userInput == "4" || userInput == "four")
             {
@@ -70,6 +77,25 @@ namespace ATM
         {
             Console.WriteLine($"Your balance is {balance}");
         }
+        public static decimal WithdrawMoney(decimal amountToWithdraw)
+        {
+           
+            if(balance <= amountToWithdraw)
+            {
+                Console.WriteLine($"Sorry insufficient funds, withdraw less than {balance: C2}");
+            }
+            else if(balance > 0)
+            {
+                balance -= amountToWithdraw;
+            }
+            return balance;
+        
+        }
+      
+        
+       
+      
+
     }
 
 }
