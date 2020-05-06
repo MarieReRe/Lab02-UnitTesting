@@ -20,9 +20,6 @@ namespace TestATM
 
             //Assert
             Assert.Equal(1000, balance);
-           
-        
-
         }
         [Fact]
         public void NoOverdrafting()
@@ -58,9 +55,38 @@ namespace TestATM
             //Act
             decimal balanceAfterWithdraw = Program.WithdrawMoney(totalWithdraw);
 
-            //Assert
+            //Assert (expect = actual)
             Assert.Equal(0, balanceAfterWithdraw);
         }
+
+        //deposit zero
+        [Fact]
+        public void DepositOfZero()
+        {
+            //Arrange
+            decimal userDepositInput = 0;
+           
+            //Act
+            decimal balanceAfterDeposit = Program.UserDeposit(userDepositInput);
+            //Assert
+            Assert.Equal(balanceAfterDeposit, userDepositInput);
+
+        }
+        //deposit 100
+        [Fact]
+        public void DepositGreaterThanZero()
+        {
+            //Arrange
+            decimal originalBalance = Program.GetBalance();
+            decimal userDepositInput = 100;
+           
+            //Act
+            decimal balanceAfterDeposit = Program.UserDeposit(userDepositInput);
+
+            //Assert
+            Assert.Equal(originalBalance + userDepositInput, balanceAfterDeposit);
+        }
+        // deposit negative number
         
     } 
 }

@@ -55,11 +55,13 @@ namespace ATM
             //If user inputs "number x'
             if (userInput == "1" || userInput == "one")
             {
-                userBalance();
+                UserBalance();
             }
             else if (userInput == "2" || userInput == "two")
             {
-                Console.WriteLine("Testing: You chose option two");
+                Console.WriteLine("How much would you like to deposit today?");
+                string userDepositInput = Console.ReadLine();
+                decimal amountToDeposit = Convert.ToInt32(userDepositInput);
             }
             else if (userInput == "3" || userInput == "three")
             {
@@ -76,9 +78,27 @@ namespace ATM
                 throw new Exception("Sorry that is not a valid input, please input a number.");
             }
         }
-        public static void userBalance()
+        public static void UserBalance()
         {
             Console.WriteLine($"Your balance is {balance}");
+        }
+
+        public static decimal UserDeposit( decimal amountToDeposit)
+        {
+            decimal newUserBalance = 0;
+            if(amountToDeposit > 0)
+            {
+                newUserBalance = balance += amountToDeposit;
+            }
+            else if( amountToDeposit < 0)
+            {
+                Console.WriteLine("Sorry, you cannot deposit a negative number");
+            }
+            else
+            {
+                Console.WriteLine($"You cannot deposit {amountToDeposit}");
+            }
+            return newUserBalance;
         }
         public static decimal WithdrawMoney(decimal amountToWithdraw)
         {
