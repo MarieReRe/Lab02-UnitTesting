@@ -47,7 +47,7 @@ namespace ATM
             //If user inputs "number x'
             if(userInput == "1" || userInput == "one")
             {
-                Console.WriteLine("Testing: You chose option one");
+                userBalance();
             }
             else if (userInput == "2" || userInput == "two")
             {
@@ -65,6 +65,10 @@ namespace ATM
             {
                 throw new Exception("Sorry that is not a valid input, please input a number.");
             }
+        }
+        public static void userBalance()
+        {
+            Console.WriteLine($"Your balance is {balance}");
         }
     }
 
