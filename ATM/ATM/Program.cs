@@ -11,7 +11,7 @@ namespace ATM
 
         }
         //set initial balance for user 
-        static decimal balance = 1000;
+        static double balance = 10000000.00;
         public static void AtmControls()
         {
             string[] userActionSelection =
@@ -30,7 +30,42 @@ namespace ATM
             {
                 Console.WriteLine(action);
             }
+            try
+            {
+                UserChoice();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Sorry something went wrong, please return at a later date {0}", ex.Message);
+            }
 
         }
+        public static void UserChoice()
+        {
+            //set the user number choice to string
+            string userInput = Console.ReadLine();
+            //If user inputs "number x'
+            if(userInput == "1" || userInput == "one")
+            {
+                Console.WriteLine("Testing: You chose option one");
+            }
+            else if (userInput == "2" || userInput == "two")
+            {
+                Console.WriteLine("Testing: You chose option two");
+            }
+            else if (userInput == "3" || userInput == "three")
+            {
+                Console.WriteLine("Testing: You chose option three");
+            }
+            else if (userInput == "4" || userInput == "four")
+            {
+                Console.WriteLine("Testing: You chose option four");
+            }
+            else
+            {
+                throw new Exception("Sorry that is not a valid input, please input a number.");
+            }
+        }
     }
+
 }
