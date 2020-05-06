@@ -85,23 +85,23 @@ namespace ATM
 
         public static decimal UserDeposit( decimal amountToDeposit)
         {
-            decimal newUserBalance = 0;
+          
             if (amountToDeposit > 0)
             {
-                newUserBalance = balance += amountToDeposit;
+                balance += amountToDeposit;
             }
             else if (amountToDeposit == 0)   
             {
-                newUserBalance = balance;
+               
                 Console.WriteLine($"You cannot deposit {amountToDeposit}");
             }
             else if (amountToDeposit < 0)
             {
-                newUserBalance = balance;
+    
                 Console.WriteLine("Sorry, you cannot deposit a negative number");
             }
-            
-            return newUserBalance;
+
+            return balance;
         }
         public static decimal WithdrawMoney(decimal amountToWithdraw)
         {
