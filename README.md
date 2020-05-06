@@ -28,6 +28,7 @@ Then select and open ```ATM.sln```
 
 ## Visuals
 #### Application Start
+![](https://github.com/mrsantons/Lab02-UnitTesting/blob/master/visuals/atmStart.jpg)
 
 #### Running the app
 
