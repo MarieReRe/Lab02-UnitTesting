@@ -97,7 +97,6 @@ namespace ATM
             }
             else if (amountToDeposit < 0)
             {
-    
                 Console.WriteLine("Sorry, you cannot deposit a negative number");
             }
 
@@ -105,7 +104,6 @@ namespace ATM
         }
         public static decimal WithdrawMoney(decimal amountToWithdraw)
         {
-           
             if(balance <amountToWithdraw)
             {
                 Console.WriteLine($"Sorry insufficient funds, withdraw less than {balance: C2}");
