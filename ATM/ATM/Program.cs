@@ -7,7 +7,7 @@ namespace ATM
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Welcome to DeltaV ATM");
+           
             AtmControls();
 
         }
@@ -27,7 +27,7 @@ namespace ATM
                 "1. View My Balance",
                 "2. Deposit Money",
                 "3. Withdraw Money",
-                "4. Exit"
+                "4. Exit",
 
             };
             //This will be the contol
@@ -60,7 +60,7 @@ namespace ATM
             else if (userInput == "2" || userInput == "two")
             {
                 
-                UserDeposit();
+                UserDepositPrompt();
             }
             else if (userInput == "3" || userInput == "three")
             {
@@ -78,13 +78,35 @@ namespace ATM
         public static void UserBalance()
         {
             Console.WriteLine($"Your balance is {balance}");
+            UserChoiceNextRound();
         }
 
-        public static decimal UserDeposit()
+        //Seperate Deposit Prompt and functionality
+        public static void UserDepositPrompt()
         {
-            Console.WriteLine("How much would you like to deposit today?");
-            string userDepositInput = Console.ReadLine();
-            decimal amount = Convert.ToInt32(userDepositInput);
+            try
+            {
+                decimal previousBalance = balance;
+                Console.WriteLine("How much would you like to deposit today?");
+                string userDepositInput = Console.ReadLine();
+                decimal amount = Convert.ToInt32(userDepositInput);
+                balance = UserDeposit(balance, amount);
+                Console.WriteLine($"${previousBalance + balance} deposited to your account. Your new balance is now {balance}");
+            }
+            catch (FormatException formEx)
+            {
+
+                Console.WriteLine($"Sorry, wrong input {0}", formEx.Message);
+            }
+            finally
+            {
+                UserChoiceNextRound();
+            }
+        }
+
+        public static decimal UserDeposit(decimal balance, decimal amount)
+        {
+            
             if (amount > 0)
             {
                
@@ -140,11 +162,18 @@ namespace ATM
         
         }
 
+      
+
+
         //Create variable to prompt user again after imputs
         public static void UserChoiceNextRound()
         {
+
             Console.WriteLine("Is there anything else we can do for you today?");
-            string response = Console.ReadLine();
+            Console.WriteLine("Yes/No");
+
+            string response = Console.ReadLine().ToLower();
+
             if (response == "yes" || response == "y")
             {
                 UserChoice();

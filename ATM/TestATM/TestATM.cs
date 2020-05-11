@@ -29,7 +29,7 @@ namespace TestATM
             decimal originalBalance = Program.GetBalance();
             decimal amountToWithdraw = originalBalance + 500;
             //act
-            decimal balanceAfterWithdraw = Program.WithdrawMoney(amountToWithdraw);
+            decimal balanceAfterWithdraw = Program.WithdrawMoney(originalBalance, amountToWithdraw);
 
             //assert
             Assert.Equal(originalBalance, balanceAfterWithdraw);
@@ -42,7 +42,7 @@ namespace TestATM
             decimal smallWithdraw = originalBalance / 20;
             
             //Act
-            decimal balanceAfterWithdraw = Program.WithdrawMoney(smallWithdraw);
+            decimal balanceAfterWithdraw = Program.WithdrawMoney(originalBalance,smallWithdraw);
 
             //Assert
             Assert.Equal( originalBalance - smallWithdraw, balanceAfterWithdraw);
@@ -51,9 +51,10 @@ namespace TestATM
         public void TakeAllTheMoney()
         {
             //Arrange
+            decimal originalBalance = Program.GetBalance();
             decimal totalWithdraw = Program.GetBalance();
             //Act
-            decimal balanceAfterWithdraw = Program.WithdrawMoney(totalWithdraw);
+            decimal balanceAfterWithdraw = Program.WithdrawMoney(originalBalance,totalWithdraw);
 
             //Assert (expect = actual)
             Assert.Equal(0, balanceAfterWithdraw);
@@ -64,10 +65,11 @@ namespace TestATM
         public void DepositOfZero()
         {
             //Arrange
+            decimal originalBalance = Program.GetBalance();
             decimal userDepositInput = 0;
            
             //Act
-            decimal balanceAfterDeposit = Program.UserDeposit(userDepositInput);
+            decimal balanceAfterDeposit = Program.UserDeposit(originalBalance, userDepositInput);
             //Assert
             Assert.Equal(balanceAfterDeposit, userDepositInput);
 
@@ -81,7 +83,7 @@ namespace TestATM
             decimal userDepositInput = 100;
            
             //Act
-            decimal balanceAfterDeposit = Program.UserDeposit(userDepositInput);
+            decimal balanceAfterDeposit = Program.UserDeposit(originalBalance, userDepositInput);
 
             //Assert
             Assert.Equal(originalBalance + userDepositInput, balanceAfterDeposit);
@@ -98,7 +100,7 @@ namespace TestATM
 
 
             //Act
-            decimal balanceAfterDeposit = Program.UserDeposit(userDepositInput);
+            decimal balanceAfterDeposit = Program.UserDeposit(originalBalance,userDepositInput);
 
             //Assert
             Assert.Equal(originalBalance, balanceAfterDeposit);
