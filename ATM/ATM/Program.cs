@@ -1,17 +1,25 @@
 ﻿using System;
+using System.Globalization;
 
 namespace ATM
 {
-    class Program
+    public class Program
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Welcome to DeltaV ATM");
+           
             AtmControls();
 
         }
+
         //set initial balance for user 
-        static double balance = 10000000.00;
+        static decimal balance = 1000.00m;
+
+
+        public static decimal GetBalance()
+        {
+            return balance;
+        }
         public static void AtmControls()
         {
             string[] userActionSelection =
@@ -19,14 +27,14 @@ namespace ATM
                 "1. View My Balance",
                 "2. Deposit Money",
                 "3. Withdraw Money",
-                "4. Exit"
+                "4. Exit",
 
             };
             //This will be the contol
             Console.WriteLine("Welcome to DeltaV ATM, Please choose a number to proceed.");
 
             //iterate through each user selection
-            foreach(string action in userActionSelection)
+            foreach (string action in userActionSelection)
             {
                 Console.WriteLine(action);
             }
@@ -45,17 +53,18 @@ namespace ATM
             //set the user number choice to string
             string userInput = Console.ReadLine();
             //If user inputs "number x'
-            if(userInput == "1" || userInput == "one")
+            if (userInput == "1" || userInput == "one")
             {
-                userBalance();
+                UserBalance();
             }
             else if (userInput == "2" || userInput == "two")
             {
-                Console.WriteLine("Testing: You chose option two");
+                
+                UserDepositPrompt();
             }
             else if (userInput == "3" || userInput == "three")
             {
-                Console.WriteLine("Testing: You chose option three");
+                WithdrawPrompt();
             }
             else if (userInput == "4" || userInput == "four")
             {
@@ -66,10 +75,121 @@ namespace ATM
                 throw new Exception("Sorry that is not a valid input, please input a number.");
             }
         }
-        public static void userBalance()
+        public static void UserBalance()
         {
             Console.WriteLine($"Your balance is {balance}");
+            UserChoiceNextRound();
         }
+
+        //Seperate Deposit Prompt and functionality
+        public static void UserDepositPrompt()
+        {
+            try
+            {
+                decimal previousBalance = balance;
+                Console.WriteLine("How much would you like to deposit today?");
+                string userDepositInput = Console.ReadLine();
+                decimal amount = Convert.ToInt32(userDepositInput);
+                balance = UserDeposit(balance, amount);
+                Console.WriteLine($"${previousBalance + balance} deposited to your account. Your new balance is now {balance}");
+            }
+            catch (FormatException formEx)
+            {
+
+                Console.WriteLine($"Sorry, wrong input {0}", formEx.Message);
+            }
+            finally
+            {
+                UserChoiceNextRound();
+            }
+        }
+
+        public static decimal UserDeposit(decimal balance, decimal amount)
+        {
+            
+            if (amount > 0)
+            {
+               
+               balance += amount;
+            }
+            else if (amount == 0)   
+            {
+               
+                Console.WriteLine($"You cannot deposit {amount}");
+            }
+            else if (amount < 0)
+            {
+                Console.WriteLine("Sorry, you cannot deposit a negative number");
+            }
+
+            return balance;
+        }
+
+        //Seperate prompt and actual method.
+        public static void WithdrawPrompt()
+        {
+            try
+            {
+                decimal previousBalance = balance;
+                Console.WriteLine("How much would you like to withdraw today?");
+                string response = Console.ReadLine();
+                decimal amount = Convert.ToInt32(response);
+                balance = WithdrawMoney(balance, amount);
+                Console.WriteLine($"${previousBalance - balance} withdrawn from your account. Your new balance is now {balance}");
+            }
+            catch (FormatException formEx)
+            {
+
+                Console.WriteLine($"Sorry, wrong input {0}", formEx.Message);
+            }
+            finally
+            {
+                UserChoiceNextRound();
+            }
+        }
+
+        public static decimal WithdrawMoney(decimal balance, decimal amount)
+        {
+            if(balance <amount)
+            {
+                Console.WriteLine($"Sorry insufficient funds, withdraw less than {balance: C2}");
+            }
+            else if(balance > 0)
+            {
+                balance-= amount;
+            }
+            return balance;
+        
+        }
+
+      
+
+
+        //Create variable to prompt user again after imputs
+        public static void UserChoiceNextRound()
+        {
+
+            Console.WriteLine("Is there anything else we can do for you today?");
+            Console.WriteLine("Yes/No");
+
+            string response = Console.ReadLine().ToLower();
+
+            if (response == "yes" || response == "y")
+            {
+                UserChoice();
+            }
+            else
+            {
+                Console.WriteLine("Thanks for choosing DeltaV ATM. GoodBye");
+            }
+        }
+
+        
+      
+        
+       
+      
+
     }
 
 }
